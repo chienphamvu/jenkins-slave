@@ -1,6 +1,20 @@
-FROM openjdk:8-jre-stretch
+FROM ubuntu:18.04
 
 COPY jenkins-slave.sh /usr/local/bin/jenkins-slave.sh
+
+RUN apt-get update
+
+# Install components that are required for Docker
+RUN apt-get install -y \
+            apt-transport-https \
+            ca-certificates \
+            curl \
+            gnupg-agent \
+            software-properties-common
+
+RUN apt-get install -y \
+            wget \
+            openjdk-8-jre
 
 # Add Docker’s official GPG key
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
